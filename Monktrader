@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Monk Trader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #333333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>The Monk Trader</h1>
+    <p>Click the button below to fetch the latest prices from TradingView.</p>
+    <button id="omButton">OM - Update Prices</button>
+    <div class="output" id="output">
+      <p>Output will appear here...</p>
+    </div>
+  </div>
+
+  <script>
+    // Replace with your bot's API URL
+    const apiUrl = "https://your-backend-api.com/monk-trader";
+
+    document.getElementById("omButton").addEventListener("click", () => {
+      // Send the "OM" command to the bot
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ command: "OM" }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Display the bot's response
+          document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          document.getElementById("output").innerText = "Error fetching data. Please try again.";
+        });
+    });
+  </script>
+</body>
+</html>
